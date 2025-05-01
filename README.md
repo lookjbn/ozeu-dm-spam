@@ -1,0 +1,2 @@
+# ozeu-dm-spam
+OZEUのDMグループスパムWebツール
