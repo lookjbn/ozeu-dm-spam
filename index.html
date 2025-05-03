@@ -1,248 +1,222 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8" />
-	<title>OZEU DMグループスパム</title>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-	<style>
-		body {
-			font-family: 'Inter', sans-serif;
-			background: linear-gradient(135deg, #2f3136, #1e1f22);
-			color: #ffffff;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-		}
-		.card {
-			background-color: #36393f;
-			padding: 32px;
-			border-radius: 20px;
-			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-			width: 100%;
-			max-width: 520px;
-			animation: fadeIn 0.8s ease;
-		}
-		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(20px); }
-			to { opacity: 1; transform: translateY(0); }
-		}
-		h2 {
-			color: #adb8ff;
-			margin-top: 0;
-			text-align: center;
-			font-weight: 600;
-		}
-		label {
-			display: block;
-			margin-top: 18px;
-			font-size: 14px;
-		}
-		input[type="text"],
-		textarea {
-			width: 100%;
-			padding: 10px;
-			margin-top: 6px;
-			border-radius: 8px;
-			border: none;
-			background-color: #202225;
-			color: white;
-			font-family: monospace;
-			resize: vertical;
-		}
-		.file-input-wrapper {
-			position: relative;
-			margin-top: 6px;
-		}
-		.file-label {
-			display: inline-block;
-			padding: 10px 16px;
-			background-color: #6d75ff;
-			color: #fff;
-			border-radius: 8px;
-			cursor: pointer;
-			font-size: 14px;
-			font-weight: 500;
-			transition: background 0.2s ease;
-		}
-		.file-label:hover {
-			background-color: #5865f2;
-		}
-		.file-name {
-			display: inline-block;
-			margin-left: 12px;
-			font-size: 13px;
-			color: #aaa;
-		}
-		input[type="file"] {
-			display: none;
-		}
-		button {
-			margin-top: 20px;
-			width: 100%;
-			padding: 14px;
-			border: none;
-			border-radius: 14px;
-			background: linear-gradient(135deg, #6d75ff, #5865f2);
-			color: white;
-			font-weight: 700;
-			font-size: 18px;
-			letter-spacing: 0.5px;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			position: relative;
-			box-shadow:
-				0 4px 15px rgba(88, 101, 242, 0.4),
-				0 0 10px rgba(255, 255, 255, 0.1),
-				inset 0 0 5px rgba(255, 255, 255, 0.2);
-			overflow: hidden;
-		}
+  <meta charset="UTF-8" />
+  <title>OZEU DMグループスパム</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* スクロールバーのスタイル */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #202225; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #5865f2; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7289da; }
 
-		button::before {
-			content: "";
-			position: absolute;
-			top: -50%;
-			left: -50%;
-			width: 200%;
-			height: 200%;
-			background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%);
-			transform: rotate(45deg);
-			animation: glam 4s linear infinite;
-		}
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg,#2f3136,#1e1f22);
+      color:#fff;
+      margin:0; padding:0;
+      display:flex; justify-content:center; align-items:center;
+      height:100vh;
+    }
+    .card {
+      background:#36393f;
+      padding:32px;
+      border-radius:20px;
+      box-shadow:0 15px 35px rgba(0,0,0,.5);
+      width:100%; max-width:600px;
+      animation:fadeIn .8s ease;
+      overflow:auto; max-height:95vh;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    h2 { color:#adb8ff; text-align:center; margin:0 0 24px; font-weight:600; }
+    label { display:block; margin-top:18px; font-size:14px; }
 
-		@keyframes glam {
-			0% { transform: rotate(45deg) translate(-50%, -50%); }
-			100% { transform: rotate(405deg) translate(-50%, -50%); }
-		}
+    /* テキスト入力 */
+    input[type="text"], textarea {
+      width:100%; padding:10px; margin-top:6px;
+      border-radius:8px; border:none;
+      background:#202225; color:#fff;
+      font-family:monospace; resize:vertical;
+    }
+    textarea { overflow-y:auto; }
+    input[type="number"] {
+      padding:6px; margin-top:6px;
+      border-radius:8px; border:none;
+      background:#202225; color:#fff;
+      font-family:monospace; appearance:none;
+      width:80px;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance:none; margin:0;
+    }
 
-		button:hover {
-			background: linear-gradient(135deg, #7d89ff, #4e57e0);
-			box-shadow:
-				0 6px 22px rgba(88, 101, 242, 0.6),
-				0 0 24px rgba(255, 255, 255, 0.2),
-				inset 0 0 10px rgba(255, 255, 255, 0.3);
-			transform: scale(1.03);
-		}
+    /* フレックス行 */
+    .row {
+      display:flex; gap:12px; align-items:center;
+    }
+    .row > * { flex:none; }
+    .row label,
+    .row .checkbox-container { margin-top:0; }
 
-		button:active {
-			transform: scale(0.96);
-			box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
-		}
+    /* トグルスイッチ */
+    .checkbox-container {
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; font-size:14px; user-select:none;
+      margin-top:6px;
+    }
+    .checkbox-container input {
+      appearance:none; width:36px; height:18px;
+      background:#4f545c; border-radius:18px;
+      position:relative; transition:background .3s ease;
+    }
+    .checkbox-container:hover input { background:#5a5f68; }
+    .checkbox-container input:focus {
+      outline:none; box-shadow:0 0 0 3px rgba(114,137,218,0.5);
+    }
+    .checkbox-container input::before {
+      content:''; position:absolute;
+      width:14px; height:14px; border-radius:50%;
+      background:#fff; top:2px; left:2px;
+      transition:transform .3s cubic-bezier(.68,-.55,.27,1.55);
+    }
+    .checkbox-container input:checked { background:#7289da; }
+    .checkbox-container input:checked::before {
+      transform:translateX(18px);
+    }
+    .checkbox-container span { transition:color .3s; }
+    .checkbox-container input:checked + span {
+      color:#adb8ff;
+    }
 
-		button.loading {
-			color: transparent;
-			pointer-events: none;
-			min-height: 52px;
-		}
+    /* ボタン */
+    button.primary {
+      margin-top:24px; width:50%; padding:14px;
+      border:none; border-radius:14px;
+      background:linear-gradient(135deg,#6d75ff,#5865f2);
+      color:#fff; font-weight:700; font-size:18px;
+      letter-spacing:.5px; cursor:pointer; position:relative;
+      box-shadow:
+        0 4px 15px rgba(88,101,242,.4),
+        0 0 10px rgba(255,255,255,.1),
+        inset 0 0 5px rgba(255,255,255,.2);
+      overflow:hidden; transition:all .3s;
+    }
+    button.primary:hover {
+      background:linear-gradient(135deg,#7d89ff,#4e57e0);
+      box-shadow:
+        0 6px 22px rgba(88,101,242,.6),
+        0 0 24px rgba(255,255,255,.2),
+        inset 0 0 10px rgba(255,255,255,.3);
+      transform:scale(1.03);
+    }
+    button.primary:active {
+      transform:scale(0.96);
+      box-shadow:inset 0 4px 6px rgba(0,0,0,.3);
+    }
+    button.primary.loading {
+      color:#fff; pointer-events:none;
+    }
+    button.secondary {
+      margin-top:24px; width:50%; padding:14px;
+      border:none; border-radius:14px;
+      background:linear-gradient(135deg,#e74c3c,#c0392b);
+      color:#fff; font-weight:700; font-size:18px;
+      letter-spacing:.5px; cursor:pointer; position:relative;
+      box-shadow:
+        0 4px 15px rgba(236,81,81,.4),
+        0 0 10px rgba(255,255,255,.1),
+        inset 0 0 5px rgba(255,255,255,.2);
+      overflow:hidden; transition:all .3s;
+    }
+    button.secondary:hover {
+      background:linear-gradient(135deg,#c0392b,#e74c3c);
+      box-shadow:
+        0 6px 22px rgba(236,81,81,.6),
+        0 0 24px rgba(255,255,255,.2),
+        inset 0 0 10px rgba(255,255,255,.3);
+      transform:scale(1.03);
+    }
+    button.secondary:active {
+      transform:scale(0.96);
+      box-shadow:inset 0 4px 6px rgba(0,0,0,.3);
+    }
 
-		button.loading::after {
-			content: "";
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			width: 30px;
-			height: 30px;
-			border: 3px solid rgba(255, 255, 255, 0.3);
-			border-top: 3px solid #ffffff;
-			border-radius: 50%;
-			animation: spin 0.6s linear infinite;
-		}
+    .button-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+	.file-input-wrapper {
+		position: relative;
+		margin-top: 6px;
+	}
+	.file-label {
+		display: inline-block;
+		padding: 10px 16px;
+		background-color: #6d75ff;
+		color: #fff;
+		border-radius: 8px;
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: 500;
+		transition: background 0.2s ease;
+	}
+	.file-label:hover {
+		background-color: #5865f2;
+	}
+	.file-name {
+		display: inline-block;
+		margin-left: 12px;
+		font-size: 13px;
+		color: #aaa;
+	}
+	input[type="file"] {
+		display: none;
+	}
 
-		@keyframes spin {
-			0%   { transform: translate(-50%, -50%) rotate(0deg); }
-			100% { transform: translate(-50%, -50%) rotate(360deg); }
-		}
-
-		#log {
-			margin-top: 20px;
-			padding: 10px;
-			height: 60px;
-			overflow-y: auto;
-			background-color: #202225;
-			border-radius: 10px;
-			font-family: monospace;
-			font-size: 12px;
-			white-space: pre-wrap;
-			resize: vertical;
-		}
-		.checkbox-row {
-			margin-top: 10px;
-			display: flex;
-			flex-direction: column;
-		}
-		.checkbox-container {
-			display: flex;
-			align-items: center;
-			cursor: pointer;
-			font-size: 14px;
-			user-select: none;
-		}
-		.checkbox-container input {
-			appearance: none;
-			width: 40px;
-			height: 20px;
-			background: #4f545c;
-			border-radius: 20px;
-			position: relative;
-			outline: none;
-			transition: background 0.3s ease;
-			margin-right: 10px;
-		}
-		.checkbox-container input:checked {
-			background: #7289da;
-		}
-		.checkbox-container input:before {
-			content: "";
-			position: absolute;
-			width: 16px;
-			height: 16px;
-			border-radius: 50%;
-			background: white;
-			top: 2px;
-			left: 2px;
-			transition: 0.3s;
-		}
-		.checkbox-container input:checked:before {
-			transform: translateX(20px);
-		}
-	</style>
+    #log { margin-top:20px; padding:10px; height:120px; overflow-y:auto; background:#202225; border-radius:10px; font-family:monospace; font-size:12px; white-space:pre-wrap; resize: vertical;}
+  </style>
 </head>
 <body>
-	<div class="card">
-		<h2>Discord DMグループスパム</h2>
-		<form id="form">
-			<label>トークン
-				<input type="text" id="token" required placeholder="MTM2MjEwNjU4NDA5NjA0N******************************">
-			</label>
-			<div class="file-input-wrapper">
-				<label class="file-label" for="image">アイコン画像を選択</label>
-				<input type="file" id="image" accept="image/*">
-				<span class="file-name" id="fileName">未選択</span>
-			</div>
-			<label>スパム対象ユーザーID（カンマ区切り・入力なしでフレンド全員を選択）
-				<textarea id="userIds" placeholder="1234567890123456,2345678901234567,260349358443069440...IDは2つ以上入力しないと機能しない" rows="3"></textarea>
-			</label>
-			<div class="checkbox-row">
-				<label class="checkbox-container">
-					<input type="checkbox" id="showLogsCheckbox">
-					レスポンスJSONを表示
-				</label>
-				<label class="checkbox-container">
-					<input type="checkbox" id="spamDmCheckbox">
-					DMスパムを実行
-				</label>
-				<label class="checkbox-container">
-					<input type="checkbox" id="leaveDMCheckbox">
-					作成したDMグループから退出
-				</label>
-			</div>
-			<button id="submitBtn" type="submit">実行</button>
-		</form>
-		<div id="log"></div>
+  <div class="card">
+    <h2>Discord DMグループスパム</h2>
+    <form id="form">
+      <label>トークン
+        <input type="text" id="token" required placeholder="MTM2MjEwNjU4NDA5NjA0N******************************">
+      </label>
+      <div class="file-input-wrapper" bis_skin_checked="1">
+		<label class="file-label" for="image">アイコン画像を選択</label>
+		<input type="file" id="image" accept="image/*">
+		<span class="file-name" id="fileName">未選択</span>
 	</div>
-	<script src="script.js"></script>
+      <label>スパム対象ユーザーID（カンマ区切り・入力なしでフレンド全員を選択）
+        <textarea id="userIds" placeholder="1234567890123456,2345678901234567,260349358443069440...IDは2つ以上入力しないと機能しない" rows="3"></textarea>
+      </label>
+      <div class="checkbox-container">
+        <input type="checkbox" id="showLogsCheckbox">
+        <span>レスポンスJSONを表示</span>
+      </div>
+      <div class="checkbox-container">
+        <input type="checkbox" id="spamDmCheckbox">
+        <span>DMスパムを実行</span>
+      </div>
+      <div class="checkbox-container">
+        <input type="checkbox" id="leaveDMCheckbox">
+        <span>作成したDMグループから退出</span>
+      </div>
+      <div class="button-container">
+		<button id="submitBtn" type="submit" class="primary">実行</button>
+		<button type="button" id="stopBtn" class="secondary">停止</button>
+	  </div>
+    </form>
+    <div id="log"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
